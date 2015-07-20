@@ -1,0 +1,22 @@
+{
+  "description": "Caramel is Codeigniter package",
+  "name": "namemsile/caramel",
+  "license": "MIT",
+  "require": {
+    "php": ">=5.2.4",
+    "illuminate/database": "^5.1",
+    "cartalyst/sentry": "^2.1",
+    "twig/twig": "^1.18",
+    "symfony/var-dumper": "^2.7",
+    "illuminate/pagination": "^5.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Smartcat\\": "src/"
+    }
+  },
+  "extra": {
+    "component": "package",
+    "frameworks": ["CodeIgniter 3"]
+  }
+}
