@@ -10,9 +10,9 @@ use Smartcat\Caramel\Exceptions\GardeException;
 class GardeFactory {
 
     /**
-     * Make new gardians
+     * Make new garde
      *
-     * @param $name
+     * @param  $name
      * @return AbstractGarde
      * @throws GardeException
      */

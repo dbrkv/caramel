@@ -12,7 +12,7 @@ class ParserFactory
      * Parser factory
      *
      * @param $name
-     * @return mixed
+     * @return AbstractParser
      * @throws ParserException
      */
     public static function make($name)

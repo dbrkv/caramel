@@ -26,7 +26,7 @@ class Sentry extends AbstractGarde
      * @param   bool    $remember
      * @return  bool    mixed
      */
-    public function authenticate($email, $password, $remember = FALSE)
+    public function authenticate($email, $password, $remember = false)
     {
         try
         {
@@ -44,39 +44,39 @@ class Sentry extends AbstractGarde
         catch (\Cartalyst\Sentry\Users\LoginRequiredException $e)
         {
             $this->set_error_message('Login field is required.');
-            return FALSE;
+            return false;
         }
         catch (\Cartalyst\Sentry\Users\PasswordRequiredException $e)
         {
             $this->set_error_message('Password field is required.');
-            return FALSE;
+            return false;
         }
         catch (\Cartalyst\Sentry\Users\WrongPasswordException $e)
         {
             $this->set_error_message('Wrong password, try again.');
-            return FALSE;
+            return false;
         }
         catch (\Cartalyst\Sentry\Users\UserNotFoundException $e)
         {
             $this->set_error_message('User was not found.');
-            return FALSE;
+            return false;
         }
         catch (\Cartalyst\Sentry\Users\UserNotActivatedException $e)
         {
             $this->set_error_message('User is not activated.');
-            return 'User is not activated.';
+            return false;
         }
 
             // The following is only required if the throttling is enabled
         catch (\Cartalyst\Sentry\Throttling\UserSuspendedException $e)
         {
             $this->set_error_message('User is suspended.');
-            return FALSE;
+            return false;
         }
         catch (\Cartalyst\Sentry\Throttling\UserBannedException $e)
         {
             $this->set_error_message('User is banned.');
-            return FALSE;
+            return false;
         }
     }
 

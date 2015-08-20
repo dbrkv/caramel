@@ -7,33 +7,51 @@ use Smartcat\Caramel\Caserne\GardeFactory;
  * Class Caramel_Controller
  * @package Smartcat\Caramel\Controllers
  */
-class Caramel_Controller extends \CI_Controller
+abstract class Caramel_Controller extends \CI_Controller
 {
     /**
      * Set true if you want use template
      * @var bool
      */
-    protected $themed = false;
+    protected $templated = false;
 
     /**
      * Set true if you want use garde
      * @var bool
      */
-    protected $garded = false;
+    protected $guarded = false;
 
     /**
-     * Class constructor
+     * Template parser instance
+     * @var \Smartcat\Caramel\Template\AbstractParser
+     */
+    protected $template;
+
+    /**
+     * Auth library instance
+     * @var \Smartcat\Caramel\Caserne\Garde\AbstractGarde
+     */
+    protected $garde;
+
+    /**
+     * Caramel_Controller constructor
      */
     public function __construct()
     {
         parent::__construct();
 
-        if ($this->themed) {
+        if ($this->templated) {
+
+            // Load template parser
             $this->template = ParserFactory::make('twig');
+
         }
 
-        if ($this->garded) {
+        if ($this->guarded) {
+
+            // Load auth library
             $this->garde = GardeFactory::make('sentry');
+
         }
     }
 }

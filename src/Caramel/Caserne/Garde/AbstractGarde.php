@@ -13,7 +13,7 @@ abstract class AbstractGarde {
     protected $ci;
 
     /**
-     * Our brave gardians
+     * Our brave garde
      * @var object
      */
     protected $garnison;
@@ -38,21 +38,21 @@ abstract class AbstractGarde {
      * @param   string  $email
      * @param   string  $password
      * @param   bool    $remember
-     * @return  bool    mixed
+     * @return  bool
      */
     abstract public function authenticate($email, $password, $remember = FALSE);
 
     /**
      * Logout
      *
-     * @return mixed
+     * @return void
      */
     abstract public function logout();
 
     /**
      * Check authentication
      *
-     * @return mixed
+     * @return bool
      */
     abstract public function check();
 
