@@ -1,6 +1,13 @@
 <?php namespace Smartcat\Caramel\Caserne\Garde;
 
-use Cartalyst\Sentry\Facades\CI\Sentry as SentryFacade;
+use Cartalyst\Sentry\Cookies\CICookie;
+use Cartalyst\Sentry\Hashing\NativeHasher;
+use Cartalyst\Sentry\Sessions\CISession;
+use Smartcat\Caramel\Caserne\Sentry\CaramelFacade as SentryFacade;
+use Cartalyst\Sentry\Sentry as BaseSentry;
+use Cartalyst\Sentry\Throttling\Eloquent\Provider as ThrottleProvider;
+use Cartalyst\Sentry\Users\Eloquent\Provider as UserProvider;
+use Cartalyst\Sentry\Groups\Eloquent\Provider as GroupProvider;
 
 /**
  * Class Garde
@@ -9,13 +16,49 @@ use Cartalyst\Sentry\Facades\CI\Sentry as SentryFacade;
 class Sentry extends AbstractGarde
 {
     /**
-     * Sentry gardians constructor
+     * Sentry garde constructor
      */
     public function __construct()
     {
         parent::__construct();
 
-        $this->garnison = SentryFacade::createSentry();
+        $sentry_config = config_item('sentry');
+
+        $user_model = $sentry_config['model'];
+
+        $user_provider = $this->makeUserProvider($user_model);
+        $ip_address = $this->ci->input->ip_address();
+        $group_provider = new GroupProvider;
+        $throttle_provider = new ThrottleProvider($user_provider);
+        $ci_session = new CISession($this->ci->session);
+        $ci_cookie = new CICookie($this->ci->input);
+
+        $sentry = new BaseSentry(
+            $user_provider,
+            $group_provider,
+            $throttle_provider,
+            $ci_session,
+            $ci_cookie,
+            $ip_address
+        );
+
+        $this->garnison = $sentry;
+    }
+
+    /**
+     * Make user provider
+     *
+     * @param  string $user_model
+     * @return UserProvider
+     *
+     */
+    private function makeUserProvider($user_model)
+    {
+        if (class_exists($user_model)) {
+            return new UserProvider(new NativeHasher(), $user_model);
+        }
+
+        return new UserProvider(new NativeHasher());
     }
 
     /**
