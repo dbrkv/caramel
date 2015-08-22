@@ -17,8 +17,8 @@ trait Remapped
     {
         $route = singular($this->router->uri->rsegments[1]);
         $http_method = $this->input->method();
-        $params = array_slice($this->router->uri->rsegments, 1, 1); // Third uri segment is resource $id
-
+        
+        
         if ( ! is_null($this->input->post('_method')) ) {
             $http_method = strtolower($this->input->post('_method'));
         }
@@ -31,10 +31,14 @@ trait Remapped
         $action = "{$http_method}_$route";
 
         if (method_exists($this, $action)) {
+            $params = array_slice($this->router->uri->rsegments, 1, 1); // Third uri segment is resource $id
+            
             return $this->{$action}($params);
         }
 
         if (method_exists($this, $route)) {
+            $params = array_slice($this->router->uri->rsegments, 2);
+            
             return $this->{$route}($params);
         }
 
