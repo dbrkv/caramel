@@ -64,19 +64,22 @@ class Sentry extends AbstractGarde
     /**
      * Authenticate credentials
      *
-     * @param   string  $email
+     * @param   string  $login
      * @param   string  $password
      * @param   bool    $remember
      * @return  bool    mixed
      */
-    public function authenticate($email, $password, $remember = false)
+    public function authenticate($login, $password, $remember = false)
     {
         try
         {
+
+            $login_name = $this->garnison->getEmptyUser()->getLoginName();
+
             // Login credentials
             $credentials = array(
-                'email'    => $email,
-                'password' => $password,
+                $login_name => $login,
+                'password'  => $password,
             );
 
             // Authenticate the user
