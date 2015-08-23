@@ -155,4 +155,13 @@ class Sentry extends AbstractGarde
         return $this->garnison;
     }
 
+    /**
+     * Get current user
+     * @return \Cartalyst\Sentry\Users\UserInterface
+     */
+    public function get_user()
+    {
+        return $this->garnison->getUser();
+    }
+
 }
