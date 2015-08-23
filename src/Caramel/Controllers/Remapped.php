@@ -17,7 +17,6 @@ trait Remapped
     {
         $http_method = $this->input->method();
         $route = $this->router->method;
-//        $action = "{$http_method}_$route";
         $params = array_slice($this->router->uri->rsegments, 2);
 
         // We are use PUT, PATCH, DELETE methods
@@ -34,8 +33,7 @@ trait Remapped
             if (end($this->router->uri->segments) === 'edit') {
                 $http_method = 'edit';
             }
-
-            $action = "{$http_method}_$route";
+            
             $params = array_slice($this->router->uri->rsegments, 1, 1); // Third uri segment is resource $id
 
             $params = $params[0];
