@@ -58,6 +58,12 @@ class Twig_Extension_Codeigniter extends Twig_Extension
             'form_dropdown'     => new Twig_SimpleFunction('form_dropdown', 'form_dropdown'),
             'form_multiselect'  => new Twig_SimpleFunction('form_multiselect', 'form_multiselect'),
             'form_radio'        => new Twig_SimpleFunction('form_radio', 'form_radio'),
+            'set_value'         => new Twig_SimpleFunction('set_value', 'set_value'),
+            'set_select'        => new Twig_SimpleFunction('set_select', 'set_select'),
+            'set_checkbox'      => new Twig_SimpleFunction('set_checkbox', 'set_checkbox'),
+            'set_radio'         => new Twig_SimpleFunction('set_radio', 'set_radio'),
+            'form_error'        => new Twig_SimpleFunction('form_error', 'form_error'),
+            'validation_errors' => new Twig_SimpleFunction('validation_errors', 'validation_errors'),
 
             /**
              * ---------------------------------------------------------------
@@ -67,6 +73,16 @@ class Twig_Extension_Codeigniter extends Twig_Extension
 
             'lang'              => new Twig_SimpleFunction('lang', 'lang'),
 
+            /**
+             * ---------------------------------------------------------------
+             * Session
+             * ---------------------------------------------------------------
+             */       
+            
+            'flash'             => new Twig_SimpleFunction('flash', function() use ($ci) {
+                return $ci->session->flashdata('message');
+            }),
+            
             /**
              * ---------------------------------------------------------------
              * Security
