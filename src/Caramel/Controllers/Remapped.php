@@ -17,13 +17,13 @@ trait Remapped
     {
         $http_method = $this->input->method();
         $route = $this->router->method;
-        $action = "{$http_method}_$route";
+//        $action = "{$http_method}_$route";
         $params = array_slice($this->router->uri->rsegments, 2);
 
         // We are use PUT, PATCH, DELETE methods
         if ( ! is_null($this->input->post('_method'))) {
             $http_method = strtolower($this->input->post('_method'));
-            $route = $this->router->uri->rsegments[1];
+            $route = isset($this->router->uri->rsegments[2]) ? $this->router->uri->rsegments[2] : $this->router->uri->rsegments[1];
         }
 
         // Second segment is numeric
@@ -38,8 +38,17 @@ trait Remapped
             $action = "{$http_method}_$route";
             $params = array_slice($this->router->uri->rsegments, 1, 1); // Third uri segment is resource $id
 
+            $params = $params[0];
+
+        }
+        
+        if ($route === 'create') {
+            $http_method = 'create';
+            $route = singular($this->router->class);
         }
 
+        $action = "{$http_method}_$route";
+        
         if (method_exists($this, $action)) {
             return $this->{$action}($params);
         }
