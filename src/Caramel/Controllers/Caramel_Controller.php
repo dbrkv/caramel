@@ -25,13 +25,13 @@ abstract class Caramel_Controller extends \CI_Controller
      * Template parser instance
      * @var \Smartcat\Caramel\Template\AbstractParser
      */
-    protected $template;
+    public $template;
 
     /**
      * Auth library instance
      * @var \Smartcat\Caramel\Caserne\Garde\AbstractGarde
      */
-    protected $garde;
+    public $garde;
 
     /**
      * Caramel_Controller constructor
