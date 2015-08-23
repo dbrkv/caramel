@@ -110,13 +110,20 @@ class Twig_Extension_Codeigniter extends Twig_Extension
 
                 return $ci->garde->check();
             }),
-            'authenticated'  => new Twig_SimpleFunction('authenticated', function() use ($ci) {
+            'authenticated'     => new Twig_SimpleFunction('authenticated', function() use ($ci) {
 
                 if ( ! isset($ci->garde)) {
                     return FALSE;
                 }
 
                 return $ci->garde->check();
+            }),
+            'auth_user'         => new Twig_SimpleFunction('auth_user', function() use ($ci) {
+                if ( ! isset($ci->garde)) {
+                    return FALSE;
+                }
+
+                return $ci->garde->get_user();
             }),
         ];
 
