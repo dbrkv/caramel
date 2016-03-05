@@ -1,5 +1,7 @@
 # Caramel
 
+![caramel](https://cloud.githubusercontent.com/assets/1858286/13548846/07b5e7d4-e302-11e5-817c-7b780c46533f.png)
+
 Caramel is codeigniter package. Delight for your web application.
 
 Caramel mixed with [Illuminate Database](https://github.com/illuminate/database) 
